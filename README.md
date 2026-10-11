@@ -1,6 +1,6 @@
 # DeepFocus 代理合作方案 · 对外版
 
-面向意向合作伙伴，沿用DeepFocus品牌UI。首页大标题逐字为「Deepfocus GEO 品牌合作方案」。「了解产品」打开 https://www.deepfocusglobal.com/zh-CN/ 。
+面向意向合作伙伴，沿用DeepFocus品牌UI。首页大标题分为两行：第一行「Deepfocus GEO」，第二行「品牌代理合作方案」。「了解产品」打开 https://www.deepfocusglobal.com/zh-CN/ 。
 
 ## 内容维护
 
