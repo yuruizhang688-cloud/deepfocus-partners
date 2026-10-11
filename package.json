@@ -1,0 +1,10 @@
+{
+  "name": "deepfocus-partners",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "python3 scripts/build.py",
+    "test": "node --test tests/contact.test.mjs",
+    "preview": "node scripts/preview.mjs"
+  }
+}
