@@ -2,6 +2,10 @@
 
 面向意向合作伙伴，沿用DeepFocus品牌UI。首页大标题分为两行：第一行「Deepfocus GEO」，第二行「品牌代理合作方案」。「了解产品」打开 https://www.deepfocusglobal.com/zh-CN/ 。
 
+## 公开访问
+
+大陆公开入口：https://r4lxq8tmi6.feishuapp.com/app/app_17fvb4dy65y/ 。已设public且无需登录，页面、字体、表单与飞书通知服务同源托管。大陆入口源码在 `mainland/`。原Sites入口继续保留，并已同步手机/平板适配。
+
 ## 内容维护
 
 source-plan.md保留合作规则来源；web/index.html为对外页面，scripts/build.py提取费用和分成，生成terms.json、来源指纹与单文件Worker。原始完整合作方案的讨论稿和待定条款不直接展示，重要费用、分工、退款与结算限制保留在对外FAQ。
