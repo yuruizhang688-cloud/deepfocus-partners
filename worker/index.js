@@ -38,10 +38,10 @@ async function notify(lead,env){
     payload.timestamp=timestamp;payload.sign=btoa(String.fromCharCode(...bytes));
   }
   try{
-    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),redirect:'error',signal:AbortSignal.timeout(10000)});
+    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),redirect:'manual',signal:AbortSignal.timeout(10000)});
     if(!r.ok)return 'rejected';const d=await r.json();
     return (d.code??d.StatusCode)===0&&(d.StatusCode===undefined||d.StatusCode===0)?'sent':'rejected';
-  }catch{return 'unknown';}
+  }catch(e){console.warn(JSON.stringify({event:'consult_delivery_error',requestId:lead.requestId,name:String(e?.name||'Error').slice(0,40)}));return 'unknown';}
 }
 async function consult(request,env,ctx){
   if(request.method!=='POST')return reply(405,'method_not_allowed','仅接受表单提交。',undefined,{Allow:'POST'});

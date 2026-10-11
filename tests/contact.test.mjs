@@ -42,6 +42,11 @@ test('only Feishu business success confirms delivery; duplicate and changed-body
     globalThis.fetch=async()=>Response.json({code:0,StatusCode:1});assert.equal((await worker.fetch(req(valid()),env,ctx)).status,502);
   }finally{globalThis.fetch=original;}
 });
+test('uses edge-compatible manual redirect and rejects redirects without forwarding the lead',async()=>{
+  const original=globalThis.fetch;let sends=0;
+  globalThis.fetch=async(url,options)=>{sends++;assert.equal(options.redirect,'manual');assert.equal(options.method,'POST');return new Response(null,{status:307,headers:{Location:'https://other.example/'}});};
+  try{const r=await worker.fetch(req(valid()),env,ctx);assert.equal(r.status,502);assert.equal((await r.json()).code,'delivery_rejected');assert.equal(sends,1);}finally{globalThis.fetch=original;}
+});
 test('unknown network result does not automatically resend on repeated ID',async()=>{
   const original=globalThis.fetch;let sends=0;globalThis.fetch=async()=>{sends++;throw new Error('simulated timeout');};
   try{const lead=valid();assert.equal((await worker.fetch(req(lead),env,ctx)).status,502);const duplicate=await worker.fetch(req(lead),env,ctx);assert.equal(duplicate.status,409);assert.equal((await duplicate.json()).code,'delivery_unknown');assert.equal(sends,1);}finally{globalThis.fetch=original;}
