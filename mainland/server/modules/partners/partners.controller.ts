@@ -24,6 +24,9 @@ export class PartnersController {
   // Platform CSRF and the reviewed Origin/field/quota checks remain active.
   @Post('api/consult')
   async consult(@Req() req: Request, @Res() res: Response, @Body() body: unknown): Promise<void> {
+    const encodedBody: string | undefined = JSON.stringify(body);
+    // The platform records req.body after the handler; keep personal data out of that trace.
+    req.body = undefined;
     const origin: string = process.env.PUBLIC_SITE_ORIGIN || `${req.protocol}://${req.get('host')}`;
     const headers: Headers = new Headers();
     for (const key of ['origin', 'content-type', 'sec-fetch-site', 'content-length']) {
@@ -33,7 +36,7 @@ export class PartnersController {
     headers.set('CF-Connecting-IP', req.ip || req.socket.remoteAddress || 'anonymous');
     const response: globalThis.Response = await worker.fetch(
       new globalThis.Request(origin + '/api/consult', {
-        method: 'POST', headers, body: JSON.stringify(body),
+        method: 'POST', headers, body: encodedBody,
       }),
       { PUBLIC_SITE_ORIGIN: origin, FEISHU_WEBHOOK_URL: process.env.FEISHU_WEBHOOK_URL,
         FEISHU_SIGN_SECRET: process.env.FEISHU_SIGN_SECRET },
