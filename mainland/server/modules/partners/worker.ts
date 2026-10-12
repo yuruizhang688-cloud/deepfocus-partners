@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common';
 import type { ConsultLead } from '../../../shared/api.interface';
 import { ASSETS } from './assets';
-interface RuntimeEnv { PUBLIC_SITE_ORIGIN?: string; FEISHU_WEBHOOK_URL?: string; FEISHU_SIGN_SECRET?: string; }
+interface RuntimeEnv { PUBLIC_SITE_ORIGIN?: string; PUBLIC_CROSS_SITE_ORIGIN?: string; FEISHU_WEBHOOK_URL?: string; FEISHU_SIGN_SECRET?: string; }
 interface Receipt { hash:string;status:string;expires:number; }
 interface RuntimeContext { waitUntil(p:Promise<unknown>):void; }
 const logger = new Logger('PartnerConsult');
@@ -55,7 +55,8 @@ async function notify(lead:ConsultLead,env:RuntimeEnv){
 async function consult(request:Request,env:RuntimeEnv,ctx:RuntimeContext){
   if(request.method!=='POST')return reply(405,'method_not_allowed','仅接受表单提交。',undefined,{Allow:'POST'});
   const origin=env.PUBLIC_SITE_ORIGIN||new URL(request.url).origin;
-  if(request.headers.get('Origin')!==origin||request.headers.get('Sec-Fetch-Site')==='cross-site')return reply(403,'invalid_origin','请从合作页面提交咨询。');
+  const approvedCrossSite=Boolean(env.PUBLIC_CROSS_SITE_ORIGIN && request.headers.get('Origin')===env.PUBLIC_CROSS_SITE_ORIGIN);
+  if((request.headers.get('Origin')!==origin&&!approvedCrossSite)||(request.headers.get('Sec-Fetch-Site')==='cross-site'&&!approvedCrossSite))return reply(403,'invalid_origin','请从合作页面提交咨询。');
   if(request.headers.get('Content-Type')?.split(';')[0].trim()!=='application/json')return reply(415,'invalid_type','提交格式不正确。');
   if(Number(request.headers.get('Content-Length'))>12000)return reply(413,'too_large','内容过长，请精简后提交。');
   let v;

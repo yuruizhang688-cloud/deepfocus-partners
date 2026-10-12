@@ -7,6 +7,18 @@ const env={PUBLIC_SITE_ORIGIN:origin,FEISHU_WEBHOOK_URL:'https://open.feishu.cn/
 const ctx={waitUntil:p=>p};
 const valid=()=>({name:'测试合作者',contact:'测试微信',company:'测试公司',city:'测试城市',mode:'first',capacity:'team',message:'测试咨询\n第二行',consent:true,website:'',requestId:crypto.randomUUID()});
 const req=(body,options={})=>new Request(origin+'/api/consult',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json','CF-Connecting-IP':crypto.randomUUID(),...options.headers},body:typeof body==='string'?body:JSON.stringify(body)});
+test('cross-site submissions require the explicit Pages origin; old same-origin API stays protected',async()=>{
+  const original=globalThis.fetch;let sends=0;globalThis.fetch=async()=>{sends++;return Response.json({code:0});};
+  try{
+    const pagesOrigin='https://yuruizhang688-cloud.github.io';
+    const crossHeaders={Origin:pagesOrigin,'Sec-Fetch-Site':'cross-site'};
+    assert.equal((await worker.fetch(req(valid(),{headers:crossHeaders}),env,ctx)).status,403);
+    const publicEnv={...env,PUBLIC_CROSS_SITE_ORIGIN:pagesOrigin};
+    assert.equal((await worker.fetch(req(valid(),{headers:crossHeaders}),publicEnv,ctx)).status,200);
+    assert.equal((await worker.fetch(req(valid(),{headers:{Origin:'https://other.github.io','Sec-Fetch-Site':'cross-site'}}),publicEnv,ctx)).status,403);
+    assert.equal(sends,1);
+  }finally{globalThis.fetch=original;}
+});
 test('required fields, consent, control characters, enums and honeypot are validated',()=>{
   assert.ok(validateLead(valid()));
   for(const fields of [{name:' '},{contact:''},{mode:'invalid'},{mode:'__proto__'},{consent:false},{website:'bot'},{city:'a\nb'},{message:'a'.repeat(1501)},{requestId:'bad'},{unexpected:1}])assert.equal(validateLead({...valid(),...fields}),null);

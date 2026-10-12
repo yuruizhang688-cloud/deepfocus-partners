@@ -1,0 +1,20 @@
+{
+  "files": {
+    "index.html": "93a93879676b9c11abb5e838fc457a82f639f30725d5979c801ab46914ebc10c",
+    "style.css": "b55a69341d70c2fb12bd13b7c7cc1dbbfb9a72482638b9fdf7dd76bdf21bbfa2",
+    "app.js": "2ef1144acdf586030f4873992bcfbb7d385f83ebbf0cdecb68dea546c779c271",
+    "assets/SpaceGrotesk-500.ttf": "12a4ba9ef9fdd6bd02c80232da125e0277fa4c333f7366f32e95cd0883f05fed",
+    "assets/SpaceGrotesk-700.ttf": "c0e6a25f78dc0c542e5c2d1c61a52e2fb762d115defce165ecb797d883243fcd",
+    "assets/SpaceGrotesk-600.ttf": "151057ba5948e58d6175b911f37145876befceb9100605994fcaed37c80f3736",
+    "assets/MiSans-Medium.woff2": "44e28ca6c2f0ca79829f192831ef87b5eec7c464f5cfb7a83467f57bb6e58114",
+    "assets/SpaceGrotesk-400.ttf": "273badf05e36a15a7fca465ef58c9ad8412ac65860eb1c41d9b94bd25ee1b4d3",
+    "assets/MiSans-Semibold.woff2": "78227c6ec59566785c65ac0b5312328bfa2f879918f3d7403725785615a9a8f6",
+    "assets/NOTICE-MiSans.txt": "217b5dc3a5672a2cfb2749466bcdded23a187820884fd88619e9fcca003c2c06",
+    "assets/mark.svg": "414f7ef060e50cc2c35a4576bc58b7af4af24f14e8068e9964e3f60c8482870b",
+    "assets/deepfocus-tokens.css": "41d22af0f176c600df61961da356203e59a3e161df7958ea6905be3762cdcf64",
+    "assets/GeistMono-400.ttf": "7aa6d05431060ee21f278e8124f5b35a90b0da2660d0b8af5b15b53767e4b060",
+    "assets/MiSans-Regular.woff2": "d704c1a932c0bd7e8a071d276cd81c0ed0c9fecfa26ac234f4bed0559fe1cb2d",
+    "assets/LICENSE-MiSans.pdf": "4a93a27cd2bd81b3b5ecfd0a853144a876fa26938a93a68443c67d74172fcb86"
+  },
+  "consultEndpoint": "https://r4lxq8tmi6.feishuapp.com/app/app_17fvb4dy65y/public/consult"
+}

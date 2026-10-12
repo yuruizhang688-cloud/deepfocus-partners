@@ -4,7 +4,7 @@
 
 ## 公开访问
 
-大陆公开入口：https://r4lxq8tmi6.feishuapp.com/app/app_17fvb4dy65y/ 。已设public且无需登录，页面、字体、表单与飞书通知服务同源托管。大陆入口源码在 `mainland/`。原Sites入口继续保留，并已同步手机/平板适配。
+备用公开入口：https://r4lxq8tmi6.feishuapp.com/app/app_17fvb4dy65y/ 。已设public且无需登录，页面、字体、表单与飞书通知服务同源托管。后端及备用入口源码在 `mainland/`。原Sites入口继续保留，并已同步手机/平板适配。
 
 ## 内容维护
 
@@ -35,4 +35,8 @@ POST /api/consult接受姓名、手机号或微信、公司/团队、城市、�
 
 使用本地Space Grotesk / MiSans / Geist Mono、DeepFocus紫色#4F39F6和DF线条标识，字体许可随web/assets保留。Codex CLI头图生成被当前模型配置拒绝，页面使用合作费用概览，未假称生成插画。
 
-站点公开；服务端能力由Sites Worker托管，不将表单后端发布到纯静态Pages。
+GitHub Pages 对外入口：https://yuruizhang688-cloud.github.io/deepfocus-partners/ 。Pages 从 main 分支的 docs/ 发布，只发布审核过的静态资源。运行 `python3 scripts/build-pages.py` 重新生成 Pages 页面；原 Site 构建继续使用 `scripts/build.py`。
+
+Pages 表单以 credentials:omit 调用飞书托管后端的 POST /app/app_17fvb4dy65y/public/consult。这个匿名端点只允许 Origin=https://yuruizhang688-cloud.github.io，预检只允许 POST 和 Content-Type，不使用 Cookie 或授权凭据。原 /api/consult 仍保留平台 CSRF 和同源校验。公开页面与仓库不包含 Webhook。更新后端需要先从 mainland 对应妙搭项目推送 sprint/default，再发布并核对 commit。
+
+公开不等于所有运营商都保证可达；GitHub Pages 和表单后端在每种访问网络上的连通性需实际测试。
