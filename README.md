@@ -40,3 +40,17 @@ GitHub Pages 对外入口：https://yuruizhang688-cloud.github.io/deepfocus-part
 Pages 表单以 credentials:omit 调用飞书托管后端的 POST /app/app_17fvb4dy65y/public/consult。这个匿名端点只允许 Origin=https://yuruizhang688-cloud.github.io，预检只允许 POST 和 Content-Type，不使用 Cookie 或授权凭据。原 /api/consult 仍保留平台 CSRF 和同源校验。公开页面与仓库不包含 Webhook。更新后端需要先从 mainland 对应妙搭项目推送 sprint/default，再发布并核对 commit。
 
 公开不等于所有运营商都保证可达；GitHub Pages 和表单后端在每种访问网络上的连通性需实际测试。
+
+<!-- repository-maintenance:begin -->
+## 维护与发布
+
+本仓是对外合作页与咨询后端的维护来源。web/ 是站点源文件，docs/ 是 Pages 发布目录，mainland/ 是独立的国内托管后端。完整讨论稿在 deepfocus-cooperation；对外内容按本仓审核版本维护。
+
+公开入口：https://yuruizhang688-cloud.github.io/deepfocus-partners/ 。Pages 源目录为 `main/docs`。
+
+日常变更先在分支提交，通过本仓验证后使用 Pull Request 合入 main。仓库保护以 GitHub 实际设置为准；个人私有仓的保护规则可能受套餐限制。Issue 用于记录缺陷与待办，缺少 Issue 不代表没有工作。
+
+维护快照使用 `maintenance-YYYYMMDD.N` 标签与 GitHub Release 记录源码版本；它不自动代表生产部署、真实平台验收或桌面安装包发布。Tag 发布后保持不可变，修正使用新版本。
+
+许可范围见根目录 LICENSE；第三方代码、字体和素材保留各自许可证。不要提交 .env、Cookie、访问令牌、浏览器资料或运行数据库。
+<!-- repository-maintenance:end -->
